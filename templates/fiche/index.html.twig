@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cardoor - Fiche véhicule{% endblock %}
+
+{% block body %}
+    {% if clientConnecte != null %}
+        <div class="utilisateurPanier">
+            <div class="droite">
+                <a href="{{ path('panier') }}"><button class="btn  btn-warning btnRna">Voir votre panier</button></a>
+            </div>
+            <div class="connecteUtilisateur">
+                <p class="blanc">Connecté: <strong class="jaune">{{ clientConnecte.nom }} {{ clientConnecte.prenom }}</strong></p>
+            </div>
+        </div>
+    {% endif %}
+
+    <!--== About Us Area Start ==-->
+    <section id="about-area" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <!-- Section Title Start -->
+                <div class="col-lg-12">
+                    <div class="section-title  text-center">
+                        <h2>Fiche véhicule</h2>
+                        <span class="title-line"><i class="fa fa-car"></i></span>
+                        <p class="erreur">{{ erreur }}</p>
+                    </div>
+                </div>
+                <!-- Section Title End -->
+            </div>
+
+            <div class="row">
+                <!-- About Content Start -->
+                <div class="col-lg-6">
+                    <div class="display-table">
+                        <div class="display-table-cell">
+                            <div class="about-content">
+                                <h3>{{vehicule.titre}} ( {{vehicule.Type}} )</h3>  
+                                <p>
+                                    <ul>
+                                        <li>- {{vehicule.description}}</li>
+                                        <li>- {{vehicule.genre}}</li>
+                                        <li>- Disponible: {{vehicule.quantiteEnStock}}</li>
+                                        <li>- Prix: {{vehicule.prix | number_format(0, '.', ' ')}} €</li>
+                                    </ul>
+                                </p>
+                                <form class="form-inline" action="{{ path('ajoutpanier', {'id':vehicule.id}) }}" method="post">
+                                    <label>Quantite</label>
+                                    <input type="number" class="form-control espaceGauche" name="quantite" value="0">
+                                    <div class="about-btn">
+                                    <input type="submit" name="submit" value="Ajouter au panier" class="btn btn-inverse btnRna espaceGauche">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- About Content End -->
+
+                <!-- About Video Start -->
+                <div class="col-lg-6">
+                    <img src="/assets/img/car/{{vehicule.photo}}" alt="{{vehicule.photo}}"> 
+                </div>
+                <!-- About Video End -->
+            </div>
+        </div>
+    </section>
+    <!--== About Us Area End ==-->
+{% endblock %}

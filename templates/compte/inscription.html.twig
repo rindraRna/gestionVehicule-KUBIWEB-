@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cardoor - Inscription{% endblock %}
+
+{% block body %}
+<!--== About Us Area Start ==-->
+    <section id="about-area" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <!-- Section Title Start -->
+                <div class="col-lg-12">
+                    <div class="section-title  text-center">
+                        <h2>Inscription</h2>
+                        <span class="title-line"><i class="fa fa-car"></i></span>
+                        <p>Inscrivez-vous pour pouvoir commander.</p>
+                        <p class="erreur">{{ erreur }}</p>
+                    </div>
+                </div>
+                <!-- Section Title End -->
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="{{ path('ajoutClient') }}" method="post">
+                        <div class="form-group">
+                            <label>Nom</label>
+                            {% if etat == 'erreur' %}
+                            <input type="text" name="nom" class="form-control" value="{{ nom }}" required>
+                            {% else %}
+                            <input type="text" name="nom" class="form-control" placeholder="Entrez votre nom" required>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label>Prénom</label>
+                            {% if etat == 'erreur' %}
+                            <input type="text" name="prenom" class="form-control" value="{{ prenom }}" required>
+                            {% else %}
+                            <input type="text" name="prenom" class="form-control" placeholder="Entrez votre prénom" required>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label>Adresse</label>
+                            {% if etat == 'erreur' %}
+                            <input type="text" name="adresse" class="form-control" value="{{ adresse }}" required>
+                            {% else %}
+                            <input type="text" name="adresse" class="form-control" placeholder="Entrez votre adresse" required>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label>Télephone</label>
+                            {% if etat == 'erreur' %}
+                            <input type="text" name="telephone" class="form-control" value="{{ telephone }}" required>
+                            {% else %}
+                            <input type="text" name="telephone" class="form-control" placeholder="Entrez votre téléphone" required>
+                            {% endif %}
+                        </div>
+                </div>
+                <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Adresse email</label>
+                            {% if etat == 'erreur' %}
+                            <input type="email" name="email" class="form-control" value="{{ email }}" required>
+                            {% else %}
+                            <input type="email" name="email" class="form-control" placeholder="Entrez votre adresse email" required>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label>Mot de passe</label>
+                            {% if etat == 'erreur' %}
+                            <input type="password" name="motDePasse" class="form-control" value="{{ motDePasse }}" required>
+                            {% else %}
+                            <input type="password" name="motDePasse" class="form-control" placeholder="Entrez votre mot de passe" required>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label>Confirmer votre mot de passe</label>
+                            {% if etat == 'erreur' %}
+                            <input type="password" name="motDePasseConfirmation" class="form-control" value="{{ motDePasseConfirmation }}" required>
+                            {% else %}
+                            <input type="password" name="motDePasseConfirmation" class="form-control" placeholder="Confirmer votre mot de passe" required>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-inverse btnRna"> Inscription</button>
+                    </form>
+                </div>
+            </div>
+            <br>
+            <center>
+                <p>Si vous avez déjà un compte, <a href="{{ path('connexion') }}" class="jaune">connectez-vous</a></p>
+            </center>
+        </div>
+    </section>
+    <!--== About Us Area End ==-->
+{% endblock %}

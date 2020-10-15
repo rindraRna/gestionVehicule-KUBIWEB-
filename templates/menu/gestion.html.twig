@@ -1,0 +1,261 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cardoor - Gestion{% endblock %}
+
+{% block body %}
+<!--== Choose Car Area Start ==-->
+    <section id="choose-car" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <!-- Section Title Start -->
+                <div class="col-lg-12">
+                    <div class="section-title  text-center">
+                        <h2>Gerer vos produits</h2>
+                        <span class="title-line"><i class="fa fa-car"></i></span>
+                        <p>Ajouter, mofidier ou supprimer vos produits.</p>
+                    </div>
+                </div>
+                <!-- Section Title End -->
+            </div>
+
+            <div class="row">
+                <!-- Choose Area Content Start -->
+                <div class="col-lg-12">
+                    <div class="choose-content-wrap">
+                        <!-- Choose Area Tab Menu -->
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#popular_cars" role="tab" aria-selected="true">Véhicules</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#newest_cars" role="tab" aria-selected="false">Fournisseurs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#office_map" role="tab" aria-selected="false">Stock</a>
+                            </li>
+                        </ul>
+                        <!-- Choose Area Tab Menu -->
+
+                        <!-- Choose Area Tab content -->
+                        <div class="tab-content" id="myTabContent">
+                            <!-- Popular Cars Tab Start -->
+                            <div class="tab-pane fade show active" id="popular_cars" role="tabpanel" aria-labelledby="home-tab">
+                                <br>
+                                {% if action == 'modifierProduit' %}
+                                <h3>Modifier un véhicule</h3>
+                                {% else %}
+                                <h3>Ajouter un véhicule</h3>
+                                {% endif %}
+                                <br>
+                                {% if action == 'modifierProduit' %}
+                                <form action="{{ path('modifierProduit', {'id':produit.id}) }}" method="post" enctype="multipart/form-data">
+                                {% else %}
+                                <form action="{{ path('creerProduit') }}" method="post" enctype="multipart/form-data">
+                                {% endif %}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Titre</label>
+                                                {% if action == 'modifierProduit' %}
+                                                <input type="text" name="titre" class="form-control" value="{{ produit.titre }}" required>
+                                                {% else %}
+                                                <input type="text" name="titre" class="form-control" placeholder="Titre du véhicule" required>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Description</label>
+                                                {% if action == 'modifierProduit' %}
+                                                <textarea name="description" class="form-control" rows="4" required>{{ produit.description }}</textarea>
+                                                {% else %}
+                                                <textarea name="description" class="form-control" placeholder="Description du véhicule" rows="4" required></textarea>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Type</label>
+                                                {% if action == 'modifierProduit' %}
+                                                <input type="text" name="type" class="form-control" value="{{produit.type}}" required>
+                                                {% else %}
+                                                <input type="text" name="type" class="form-control" placeholder="Type du véhicule" required>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Marque</label>
+                                                <select name="idMarque" class="form-control">
+                                                {# {% if action == 'modifierProduit' %}
+                                                    <option value="{{ marque.id }}">{{ marque.nom }}</option>
+                                                {% else %} #}
+                                                {% for marque in marques %}
+                                                    <option value="{{ marque.id }}">{{ marque.nom }}</option>
+                                                {% endfor %}
+                                                {# {% endif %} #}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Genre</label>
+                                                {% if action == 'modifierProduit' %}
+                                                <input type="text" name="genre" class="form-control" value="{{ produit.genre }}" required>
+                                                {% else %}
+                                                <input type="text" name="genre" class="form-control" placeholder="Genre du véhicule" required>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Quantité en stock</label>
+                                                {% if action == 'modifierProduit' %}
+                                                <input type="number" name="quantiteEnStock" class="form-control" value="{{ produit.quantiteEnStock }}" required>
+                                                {% else %}
+                                                <input type="number" name="quantiteEnStock" class="form-control" placeholder="Quantité en stock du véhicule" required>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Prix</label>
+                                                {% if action == 'modifierProduit' %}
+                                                <input type="number" name="prix" class="form-control" value="{{ produit.prix }}" required>
+                                                {% else %}
+                                                <input type="number" name="prix" class="form-control" placeholder="Prix du véhicule" required>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Photo</label>
+                                                {% if action == 'modifierProduit' %}
+                                                <input type="file" name="photo" accept="image/jpeg"  value="{{ produit.photo }}" required>
+                                                {% else %}
+                                                <input type="file" name="photo" accept="image/jpeg" required>
+                                                {% endif %}
+                                            </div>
+                                            {% if action == 'modifierProduit' %}
+                                            <button type="submit" class="btn btn-inverse btnRna"><i class="icon icon-check icon-lg"></i> Modifier</button>
+                                            {% else %}
+                                            <button type="submit" class="btn btn-inverse btnRna"><i class="icon icon-check icon-lg"></i> Ajouter</button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </form>
+                                
+                                <br>
+                                <h3>Nos véhicules</h3>
+                                <br>
+                                <!-- Popular Cars Content Wrapper Start -->
+                                <div class="popular-cars-wrap">
+                                    <!-- PopularCars Tab Content Start -->
+                                    <div class="row popular-car-gird">
+                                        {% for produit in produits %}
+                                        <!-- Single Popular Car Start -->
+                                        <div class="col-lg-4 col-md-6 {{produit.type}}">
+                                            <div class="single-popular-car">
+                                                <div class="p-car-thumbnails">
+                                                    <a class="car-hover" href="/assets/img/car/{{produit.photo}}">
+                                                      <img src="/assets/img/car/{{produit.photo}}" alt="{{produit.photo}}">
+                                                   </a>
+                                                </div>
+
+                                                <div class="p-car-content">
+                                                    <h3>
+                                                        <a href="{{ path('fiche', {'id':produit.id}) }}">{{produit.titre}}</a>
+                                                        <span class="price"><i class="fa fa-tag"></i> {{produit.prix | number_format(0, '.', ' ')}} €</span>
+                                                    </h3>
+
+                                                    <h5>{{produit.description}}</h5>
+
+                                                    <div class="p-car-feature">
+                                                        <a href="{{ path('modifierForm', {'id':produit.id}) }}">Modifier</a>
+                                                        <a href="{{ path('supprimerProduit', {'id':produit.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer ce produit?')">Supprimer</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Popular Car End -->
+                                        {% endfor %}
+                                    </div>
+                                    <!-- PopularCars Tab Content End -->
+                                </div>
+                                <!-- Popular Cars Content Wrapper End -->
+                            </div>
+                            <!-- Popular Cars Tab End -->
+
+                            <!-- Newest Cars Tab Start -->
+                            <div class="tab-pane fade" id="newest_cars" role="tabpanel" aria-labelledby="profile-tab">
+                                <br>  
+                                {% if action == 'modifierFournisseur' %}
+                                <h3>Modifier un fournisseur</h3>
+                                <form action="{{ path('modifierFournisseur', {'id':fournisseur.id}) }}" method="post">
+                                {% else %}
+                                <h3>Ajouter un fournisseur</h3>
+                                <form action="{{ path('ajouterFournisseur') }}" method="post">
+                                {% endif %}
+                                    <br>
+                                    <div class="form-group">
+                                        <label>Nom</label>
+                                        {% if action == 'modifierFournisseur' %}
+                                        <input type="text" name="nom" class="form-control" value="{{ fournisseur.nom }}">
+                                        {% else %}
+                                        <input type="text" name="nom" class="form-control" placeholder="Nom du fournisseur">
+                                        {% endif %}
+                                    </div>
+                                    {% if action == 'modifierFournisseur' %}
+                                    <button type="submit" class="btn btn-inverse btnRna"><i class="icon icon-check icon-lg"></i> Modifier</button>
+                                    {% else %}
+                                    <button type="submit" class="btn btn-inverse btnRna"><i class="icon icon-check icon-lg"></i> Ajouter</button>
+                                    {% endif %}
+                                </form>
+
+                                <br>  
+                                <h3>Vos Fournisseurs</h3>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for fournisseur in fournisseurs %}
+                                        <tr>
+                                            <td>{{ fournisseur.nom }}</td>
+                                            <td><a href="{{ path('modifierFormFournisseur', {'id':fournisseur.id}) }}"><button type="button" class="btn  btn-inverse btnRnaNoir">Modifier</button></a></td>
+                                            <td><a href="{{ path('supprimerFournisseur', {'id':fournisseur.id}) }}" onclick="return confirm('Voulez-vous vraiment supprimer ce fournisseur?')"><button type="button" class="btn  btn-inverse btnRna">Supprimer</button></a></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- Newest Cars Tab End -->
+
+                            <!-- Office Map Tab -->
+                            <div class="tab-pane fade" id="office_map" role="tabpanel" aria-labelledby="contact-tab">
+                                <br>  
+                                <h3>Stock de vos produits</h3>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom du produit</th>
+                                            <th>Quantité</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for produit in produits %}
+                                        <tr>
+                                            <td>{{ produit.titre }} ({{ produit.type }})</td>
+                                            <form action="{{ path('misAJourStockProduit', {'id':produit.id}) }}" method="post">
+                                                <td><input type="number" name="quantiteEnStock" class="form-control" value="{{ produit.quantiteEnStock }}"></td>
+                                                <td><button type="submit" class="btn btn-inverse btnRna">Mettre à jour</button></td>
+                                            </form>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- Office Map Tab -->
+                        </div>
+                        <!-- Choose Area Tab content -->
+                    </div>
+                </div>
+                <!-- Choose Area Content End -->
+            </div>
+        </div>
+    </section>
+    <!--== Choose Car Area End ==-->
+{% endblock %}

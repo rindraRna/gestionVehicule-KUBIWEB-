@@ -1,0 +1,23 @@
+CARDOOR (Application web de gestion de produits d'un vendeur de voiture)
+KUBIWEB – TEST SYMFONY 
+Développeur: Rindra 
+
+Pour lancer l'application:
+  - Créer la base de données: "php bin/console doctrine:database:create "(cette ligne de commande créer un nouveau base de données "gestionVehicule" dans votre MySQL)
+  - Lancer la commande de création de schéma de la base de donnée: ""
+  - Initialiser les données: "php bin/console doctrine:fixtures:load"
+  - Lancer l'application: "symfony server:start"
+
+Pour tester l'API, utiliser:
+  - Pour la mis à jour du produit: http://127.0.0.1:8000/api/produits/4 avec la méthode PUT (4 est l'id du produit)
+  - Pour la création d'un produit: http://127.0.0.1:8000/api/produits avec la méthode POST
+  - Le JSON est de la forme:
+     {
+      "titre": string,
+      "description": string,
+      "quantiteEnStock": integer,
+      "prix": integer,
+      "type": string,
+      "genre": string,
+      "photo": string
+    }

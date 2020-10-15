@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cardoor - Panier{% endblock %}
+
+{% block body %}
+<!--== About Us Area Start ==-->
+    <section id="about-area" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <!-- Section Title Start -->
+                <div class="col-lg-12">
+                    <div class="section-title  text-center">
+                        <h2>Votre panier</h2>
+                        <span class="title-line"><i class="fa fa-car"></i></span>
+                        <p>Gérer votre panier puis validez.</p>
+                        <p><a href="{{ path('viderPanier') }}" class="jaune">Vider le panier</a></p>
+                        <p class="erreur">{{ erreur }}</p>
+                    </div>
+                </div>
+                <!-- Section Title End -->
+            </div>
+
+            <div class="row">
+                {% if panier|length == 0 %}
+                <p>Aucun produit encore commandé.</p>
+                {% else %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Photo</th>	
+                            <th>Nom</th>	
+                            <th>Quantite</th>
+                            <th>Prix Unitaire (€)</th>
+                            <th>Prix (€)</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set montantTotal = 0 %}
+                        {% set indice = 0 %}
+                        {% for produit in panier %}
+                        <tr>
+                            <td><img src="/assets/img/car/{{produit.photo}}" alt="{{produit.photo}}" class="img-responsive" width="200" /></td>
+                            <td>{{ produit.titre }}</td>
+                            <form action="{{ path('misAJourProduitPanier', {'id':indice, 'idProduit':produit.id}) }}" method="post">
+                                <td><input class="form-control" name="quantiteCommande" type="number" value="{{ produit.quantiteEnStock }}" required/></td>
+                                <td>{{ produit.prix | number_format(0, '.', ' ') }}</td>
+                                <td>{{ (produit.prix * produit.quantiteEnStock) | number_format(0, '.', ' ') }}</td>
+                                <td><button class="btn  btn-inverse btnRnaNoir">Mettre à ajour</button></td>
+                            </form>
+                            <td><a href="{{ path('supprimerProduitPanier', {'id':indice}) }}"> <button class="btn  btn-inverse btnRna">Supprimer</button></a></td>
+                        </tr>
+                        {% set montantTotal = montantTotal+(produit.prix * produit.quantiteEnStock) %}
+                        {% set indice = indice+1 %}
+                        {%  endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="text-center" colspan="5">Prix total: {{ montantTotal | number_format(0, '.', ' ') }} €</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="about-btn text">
+                    <a href="{{ path('validerCommande') }}">Valider la commande</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <!--== About Us Area End ==-->
+
+{% endblock %}

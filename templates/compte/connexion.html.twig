@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cardoor - Connexion{% endblock %}
+
+{% block body %}
+<!--== About Us Area Start ==-->
+    <section id="about-area" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <!-- Section Title Start -->
+                <div class="col-lg-12">
+                    <div class="section-title  text-center">
+                        <h2>Connexion</h2>
+                        <span class="title-line"><i class="fa fa-car"></i></span>
+                        <p>Connectez-vous pour pouvoir commander.</p>
+                    </div>
+                </div>
+                <!-- Section Title End -->
+            </div>
+
+            <div class="row">
+                <!-- About Content Start -->
+                <div class="col-lg-6">
+                    <div class="display-table">
+                        <div class="display-table-cell">
+                            <div class="about-content">
+                                <h3>Connectez-vous</h3>  
+                                <p class="erreur">{{ erreur }}</p>
+                                <form action="{{ path('login') }}" method="post">
+                                    <div class="form-group">
+                                        <label>Adresse email</label>
+                                        <input type="email" name="email" class="form-control" value="jpierre@gmail.com" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mot de passe</label>
+                                        <input type="password" name="motDePasse" class="form-control" value="motdepasse" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-inverse btnRna"> Connexion</button>
+                                </form>
+                                <br>
+                                <p>Si vous n'avez pas de compte, <a href="{{ path('inscription') }}" class="jaune">inscrivez-vous</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- About Content End -->
+
+
+                <!-- About Video Start -->
+                <div class="col-lg-6">
+                    <div class="about-video">
+                        <br>
+                        <iframe src="/assets/img/article/service2-img.png"></iframe>
+                    </div>
+                </div>
+                <!-- About Video End -->
+            </div>
+        </div>
+    </section>
+    <!--== About Us Area End ==-->
+{% endblock %}

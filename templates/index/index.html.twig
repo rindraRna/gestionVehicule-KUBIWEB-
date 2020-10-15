@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cardoor - Accueil{% endblock %}
+
+{% block body %}
+    {% if clientConnecte != null %}
+        <div class="utilisateurPanier">
+            <div class="droite">
+                <a href="{{ path('panier') }}"><button class="btn  btn-warning btnRna">Voir votre panier</button></a>
+            </div>
+            <div class="connecteUtilisateur">
+                <p class="blanc">Connecté: <strong class="jaune">{{ clientConnecte.nom }} {{ clientConnecte.prenom }}</strong></p>
+            </div>
+        </div>
+        <br>
+        <center>
+            <p class="erreur"><strong>{{ message }} </strong></p>
+        </center>
+    {% endif %}
+
+    <!--== Choose Car Area Start ==-->
+    <section id="choose-car" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <!-- Section Title Start -->
+                <div class="col-lg-12">
+                    <div class="section-title  text-center">
+                        <h2>Nos voitures</h2>
+                        <span class="title-line"><i class="fa fa-car"></i></span>
+                        <p>Choisissez les voitures qui vous conviennent.</p>
+                    </div>
+                </div>
+                <!-- Section Title End -->
+            </div>
+
+            <div class="row">
+                <!-- Choose Area Content Start -->
+                <div class="col-lg-12">
+                    <div class="choose-content-wrap">
+                        <!-- Choose Area Tab content -->
+                        <div class="tab-content" id="myTabContent">
+                            <!-- Popular Cars Tab Start -->
+                            <div class="tab-pane fade show active" id="popular_cars" role="tabpanel" aria-labelledby="home-tab">
+                                <!-- Popular Cars Content Wrapper Start -->
+                                <div class="popular-cars-wrap">
+                                    <!-- PopularCars Tab Content Start -->
+                                    <div class="row popular-car-gird">
+                                        {% for produit in produits %}
+                                        <!-- Single Popular Car Start -->
+                                        <div class="col-lg-4 col-md-6 {{produit.type}}">
+                                            <div class="single-popular-car">
+                                                <div class="p-car-thumbnails">
+                                                    <a class="car-hover" href="/assets/img/car/{{produit.photo}}">
+                                                      <img src="/assets/img/car/{{produit.photo}}" alt="{{produit.photo}}">
+                                                   </a>
+                                                </div>
+
+                                                <div class="p-car-content">
+                                                    <h3>
+                                                        <a href="{{ path('fiche', {'id':produit.id}) }}">{{ produit.titre }}</a>
+                                                        <span class="price"><i class="fa fa-tag"></i> {{ produit.prix | number_format(0, '.', ' ') }} €</span>
+                                                    </h3>
+
+                                                    <h5>{{produit.description}}</h5>
+                                                    <h5>Disponible: {{produit.quantiteEnStock}}</h5>
+                                                    <div class="p-car-feature">
+                                                        <a href="{{ path('fiche', {'id':produit.id}) }}">{{produit.type}}</a>
+                                                        <a href="{{ path('fiche', {'id':produit.id}) }}">{{produit.genre}}</a></a>
+                                                        <a href="{{ path('fiche', {'id':produit.id}) }}">Voir fiche</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Popular Car End -->
+                                        {% endfor %}
+                                    </div>
+                                    <!-- PopularCars Tab Content End -->
+                                </div>
+                                <!-- Popular Cars Content Wrapper End -->
+                            </div>
+                            <!-- Popular Cars Tab End -->
+                        </div>
+                        <!-- Choose Area Tab content -->
+                    </div>
+                </div>
+                <!-- Choose Area Content End -->
+            </div>
+        </div>
+    </section>
+    <!--== Choose Car Area End ==-->
+
+    <!--== About Us Area Start ==-->
+    <section id="about-area" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <!-- Section Title Start -->
+                <div class="col-lg-12">
+                    <div class="section-title  text-center">
+                        <h2>Qui sommes-nous?</h2>
+                        <span class="title-line"><i class="fa fa-car"></i></span>
+                        <p>Découvrez ce que nous faisons.</p>
+                    </div>
+                </div>
+                <!-- Section Title End -->
+            </div>
+
+            <div class="row">
+                <!-- About Content Start -->
+                <div class="col-lg-6">
+                    <div class="display-table">
+                        <div class="display-table-cell">
+                            <div class="about-content">
+                                <p>CARDOOR est un site web qui vous facilite l'achat de véhicules. L'achat se fait en quelques clics alors profitez-en.</p>
+                                <p>
+                                    <ul>
+                                        <li>- Trouvez votre marque et votre style.</li>
+                                        <li>- De nombreux véhicules s'offrent à vous.</li>
+                                        <li>- Achetez ce qui vous convient.</li>
+                                    </ul>
+                                </p>
+                                <div class="about-btn">
+                                    <a href="#choose-car">Voir les véhicules</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- About Content End -->
+
+                <!-- About Video Start -->
+                <div class="col-lg-6">
+                    <div class="about-video">
+                        <iframe src="/assets/img/article/service1-img.png"></iframe>
+                    </div>
+                </div>
+                <!-- About Video End -->
+            </div>
+        </div>
+    </section>
+    <!--== About Us Area End ==-->
+{% endblock %}

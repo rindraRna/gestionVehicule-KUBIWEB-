@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cardoor - Gestion des commandes{% endblock %}
+
+{% block body %}
+<!--== About Us Area Start ==-->
+<section id="about-area" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <!-- Section Title Start -->
+            <div class="col-lg-12">
+                <div class="section-title  text-center">
+                    <h2>Toutes les commandes</h2>
+                    <span class="title-line"><i class="fa fa-car"></i></span>
+                    <p>La liste de toutes les commandes s'affiche ici</p>
+                </div>
+            </div>
+            <!-- Section Title End -->
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {% if vide == 0 %}
+                <p>Aucune commande n'a encore été faite</p>
+                {% else %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Numéro</th>
+                            <th>Date</th>
+                            <th>Client</th>
+                            <th>email</th>
+                            <th>Montant (€)</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td class="text-center" colspan="5">Liste des commandes</td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for commandeClient in commandeClients %}
+                        <tr>
+                            <td><a href="{{ path('detailsCommande', {'id':commandeClient.id}) }}">{{ commandeClient.id }}</a></td>
+                            <td>{{ commandeClient.dateCommande|date('d-m-Y H:i:s') }}</td>
+                            <td>{{ commandeClient.nom }} {{ commandeClient.prenom }} </td>
+                            <td>{{ commandeClient.email }}</td>
+                            <td>{{ commandeClient.montantTotal | number_format(0, '.', ' ') }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+</section>
+<!--== About Us Area End ==-->
+{% endblock %}
