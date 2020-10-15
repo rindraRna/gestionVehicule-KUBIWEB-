@@ -61,9 +61,13 @@
                         </tr>
                     </tfoot>
                 </table>
-                <div class="about-btn text">
-                    <a href="{{ path('validerCommande') }}">Valider la commande</a>
-                </div>
+                {% if clientConnecte != null %}
+                    <div class="about-btn text">
+                        <a href="{{ path('validerCommande') }}">Valider la commande</a>
+                    </div>
+                {% else %}
+                    <p>Veuillez-vous connecter pour valider le panier</p>
+                {% endif %}
                 {% endif %}
             </div>
         </div>
